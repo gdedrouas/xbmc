@@ -333,7 +333,7 @@ void CSimpleDoubleCache::Reset(int64_t iSourcePosition, bool clearAnyway)
   }
   if (!m_pCacheOld)
   {
-    CSimpleFileCache *pCacheNew = new CSimpleFileCache();
+    CCacheStrategy *pCacheNew = m_pCache->CreateNew();
     if (pCacheNew->Open() != CACHE_RC_OK)
     {
       delete pCacheNew;
