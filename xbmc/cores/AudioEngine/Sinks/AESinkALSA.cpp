@@ -271,27 +271,7 @@ bool CAESinkALSA::InitializeHW(AEAudioFormat &format)
   snd_pcm_hw_params_set_access(m_pcm, hw_params, SND_PCM_ACCESS_RW_INTERLEAVED);
 
   unsigned int sampleRate   = format.m_sampleRate;
-#if defined(HAS_AMLPLAYER) || defined(HAS_LIBAMCODEC)
-  // alsa/kernel lies, so map everything to 44100 or 48000
-  switch(sampleRate)
-  {
-    case 11025:
-    case 22050:
-    case 88200:
-    case 176400:
-      sampleRate = 44100;
-      break;
-    case 8000:
-    case 16000:
-    case 24000:
-    case 32000:
-    case 96000:
-    case 192000:
-    case 384000:
-      sampleRate = 48000;
-      break;
-  }
-#endif
+
   unsigned int channelCount = format.m_channelLayout.Count();
 
   snd_pcm_hw_params_set_rate_near    (m_pcm, hw_params, &sampleRate, NULL);
